@@ -1,13 +1,9 @@
 #include "widget.h"
 
 namespace iamaprogrammer {
-  void Widget::create(Widget* parent) {
-    this->assign(nullptr);
-  }
-  
 
   void Widget::create(lv_obj_t* parent) {
-    this->assign(nullptr);
+    this->assign(lv_obj_create(parent));
   }
 
 

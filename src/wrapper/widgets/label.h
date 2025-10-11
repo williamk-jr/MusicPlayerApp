@@ -6,7 +6,10 @@ namespace iamaprogrammer {
   class LabelWidget: public Widget {
     public:
       LabelWidget(Widget* parent);
+
+
       LabelWidget(lv_obj_t* parent);
+
 
       void setText(const char *text);
 
@@ -68,7 +71,6 @@ namespace iamaprogrammer {
       void cutText(uint32_t pos, uint32_t cnt);
 
     protected:
-      void create(Widget* parent) override;
       void create(lv_obj_t* parent) override;
   };
 }

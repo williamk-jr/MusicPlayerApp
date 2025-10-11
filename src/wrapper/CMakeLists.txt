@@ -3,6 +3,10 @@ add_library(lvgl_wrapper STATIC
   widgets/widget.cpp
   widgets/button.cpp
   widgets/label.cpp
+  widgets/slider.cpp
+
+  widgets/layout/grid.cpp
+  widgets/layout/grid_cell.cpp
 )
 target_include_directories(lvgl_wrapper PUBLIC ${CMAKE_SOURCE_DIR}/src/wrapper)
 

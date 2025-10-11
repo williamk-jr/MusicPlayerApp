@@ -9,6 +9,7 @@ extern "C" {
 namespace iamaprogrammer {
   class Widget {
     public:
+
       virtual lv_obj_t* getHandle() final;
 
 
@@ -160,7 +161,6 @@ namespace iamaprogrammer {
 
 
     protected:
-      virtual void create(Widget* parent);
       virtual void create(lv_obj_t* parent);
       virtual void assign(lv_obj_t* object) final;
 

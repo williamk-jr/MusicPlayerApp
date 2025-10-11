@@ -13,6 +13,6 @@ add_subdirectory("src")
 target_include_directories(lvgl_wrapper PUBLIC ${PROJECT_SOURCE_DIR}/src/wrapper)
 
 # Create executable
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} "src/main.cpp")
 target_link_libraries(${PROJECT_NAME} lvgl lvgl::demos lvgl::thorvg m pthread lvgl_wrapper)
 

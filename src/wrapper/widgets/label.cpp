@@ -2,17 +2,12 @@
 
 namespace iamaprogrammer {
   LabelWidget::LabelWidget(Widget* parent) {
-    this->create(parent);
+    this->create(parent->getHandle());
   }
 
 
   LabelWidget::LabelWidget(lv_obj_t* parent) {
     this->create(parent);
-  }
-
-
-  void LabelWidget::create(Widget* parent) {
-    this->create(parent->getHandle());
   }
   
   

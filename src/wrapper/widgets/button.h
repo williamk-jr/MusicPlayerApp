@@ -9,7 +9,6 @@ namespace iamaprogrammer {
       ButtonWidget(lv_obj_t* parent);
 
     protected:
-      void create(Widget* parent) override;
       void create(lv_obj_t* parent) override;
   };
 }
