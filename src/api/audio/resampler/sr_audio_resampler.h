@@ -1,6 +1,6 @@
 #pragma once
-#include "IAudioResampler.h"
-#include "../reader/IAudioReader.h"
+#include "iaudio_resampler.h"
+#include "../reader/iaudio_reader.h"
 #include <samplerate.h>
 
 namespace iamaprogrammer {

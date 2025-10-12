@@ -1,4 +1,4 @@
-#include "SndlibAudioReader.h"
+#include "sndlib_audio_reader.h"
 
 namespace iamaprogrammer {
   SndlibAudioReader::SndlibAudioReader() {

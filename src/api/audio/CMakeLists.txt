@@ -1,10 +1,10 @@
 add_library(libaudio STATIC
-	"AudioStream.cpp"
-	"AudioChunk.cpp"
-	"stream/PortAudioStream.cpp" 
-	"backends/PortAudioBackend.cpp" 
-	"resampler/SRAudioResampler.cpp" 
-	"reader/SndlibAudioReader.cpp"
+	"audio_stream.cpp"
+	"audio_chunk.cpp"
+	"stream/port_audio_stream.cpp" 
+	"backends/port_audio_backend.cpp" 
+	"resampler/sr_audio_resampler.cpp" 
+	"reader/sndlib_audio_reader.cpp"
 )
 
 find_package(PortAudio)

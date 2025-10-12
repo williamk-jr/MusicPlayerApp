@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
-#include "../stream/IBasicAudioStream.h"
-#include "../AudioDevice.h"
+#include "../stream/ibasic_audio_stream.h"
+#include "../audio_device.h"
 
 namespace iamaprogrammer {
   typedef std::unique_ptr<IBasicAudioStream> AudioStreamPtr;

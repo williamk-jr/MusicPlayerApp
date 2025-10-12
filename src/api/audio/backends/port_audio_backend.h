@@ -1,7 +1,7 @@
 #pragma once
-#include "IAudioBackend.h"
-#include "../stream/PortAudioStream.h"
-#include "../AudioDevice.h"
+#include "iaudio_backend.h"
+#include "../stream/port_audio_stream.h"
+#include "../audio_device.h"
 #include <portaudio.h>
 #include <memory>
 

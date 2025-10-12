@@ -1,11 +1,11 @@
 #pragma once
-#include "IBasicAudioStream.h"  
+#include "ibasic_audio_stream.h"  
 
 #include <queue>
 #include <stdexcept>
 #include <portaudio.h>
-#include "../AudioChunk.h"
-#include "../AudioFileDescriptor.h"
+#include "../audio_chunk.h"
+#include "../audio_file_descriptor.h"
 
 namespace iamaprogrammer {
   class PortAudioStream : public IBasicAudioStream {

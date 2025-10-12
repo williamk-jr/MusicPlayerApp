@@ -1,5 +1,5 @@
 #pragma once
-#include "IAudioReader.h"
+#include "iaudio_reader.h"
 #include <sndfile.h>
 #include <queue>
 #include <filesystem>

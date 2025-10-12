@@ -7,11 +7,11 @@
 #include <mutex>
 #include <thread>
 
-#include "AudioChunk.h"
-#include "AudioFileDescriptor.h"
-#include "stream/IBasicAudioStream.h"
-#include "reader/IAudioReader.h"
-#include "resampler/IAudioResampler.h"
+#include "audio_chunk.h"
+#include "audio_file_descriptor.h"
+#include "stream/ibasic_audio_stream.h"
+#include "reader/iaudio_reader.h"
+#include "resampler/iaudio_resampler.h"
 
 namespace iamaprogrammer {
   class AudioStream {

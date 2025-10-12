@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "../reader/IAudioReader.h"
-#include "../resampler/IAudioResampler.h"
+#include "../reader/iaudio_reader.h"
+#include "../resampler/iaudio_resampler.h"
 
 namespace iamaprogrammer {
   struct AudioStreamData {

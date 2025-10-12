@@ -1,7 +1,7 @@
 #pragma once
-#include "../AudioFileDescriptor.h"
-#include "../AudioChunk.h"
-#include "../resampler/IAudioResampler.h"
+#include "../audio_file_descriptor.h"
+#include "../audio_chunk.h"
+#include "../resampler/iaudio_resampler.h"
 
 #include <queue>
 

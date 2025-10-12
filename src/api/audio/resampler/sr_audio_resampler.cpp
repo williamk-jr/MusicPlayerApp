@@ -1,4 +1,4 @@
-#include "SRAudioResampler.h"
+#include "sr_audio_resampler.h"
 
 namespace iamaprogrammer {
   SRAudioResampler::SRAudioResampler(IAudioReader* reader, double deviceSampleRate) {
