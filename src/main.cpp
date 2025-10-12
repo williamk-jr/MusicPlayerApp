@@ -2,12 +2,7 @@
 #include <string>
 #include <unistd.h>
 
-#include <style/style.h>
-#include <widgets/button.h>
-#include <widgets/label.h>
-#include <widgets/slider.h>
-#include <widgets/layout/grid.h>
-#include <widgets/layout/grid_cell.h>
+#include <lvgl_cpp.h>
 
 extern "C" {
   #include "lvgl/lvgl.h"
