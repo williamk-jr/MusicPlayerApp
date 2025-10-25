@@ -5,22 +5,35 @@ namespace iamaprogrammer {
 
   }
 
-  SndlibAudioReader::SndlibAudioReader(std::filesystem::path filePath, int readSize): 
-    readSize(readSize)
-  {
+  SndlibAudioReader::SndlibAudioReader(int readSize): 
+    readSize(readSize) {}
+
+  void SndlibAudioReader::open(std::filesystem::path filePath) {
+    std::cout << "READER" << std::endl;
+
     SF_INFO info;
 
+    // Format file path
     std::string pathStr = filePath.string();
     const char* pathCStr = pathStr.c_str();
 
+    // Open file
+    std::cout << "\tAttempting to open file: " << filePath << std::endl;
     this->file = sf_open(pathCStr, SFM_READ, &info);
     if (this->file == nullptr) {
-      std::cout << "Error opening file: " << pathCStr << std::endl;
+      std::cout << "\tError opening file: " << pathCStr << std::endl;
+      std::cout << "\t" << sf_strerror(this->file) << std::endl;
+      return;
     }
 
     this->audioFileDescriptor.frames = info.frames;
     this->audioFileDescriptor.channels = info.channels;
     this->audioFileDescriptor.sampleRate = info.samplerate;
+
+    std::cout << "\tOpened file: " << filePath << std::endl;
+    std::cout << "\t\tFrame Count: " << info.frames << std::endl;
+    std::cout << "\t\tChannels: " << info.channels << std::endl;
+    std::cout << "\t\tSample Rate: " << info.samplerate << std::endl;
 
     // Set up read buffer and initialize sample rate converter.
     this->readBuffer = std::vector<float>(readSize * info.channels);
@@ -32,6 +45,7 @@ namespace iamaprogrammer {
 
     long long readCount = sf_readf_float(this->file, this->readBuffer.data(), this->readSize);
 
+    // Transfer data from read buffer to chunk buffer.
     if (srConvertionRatio == 1.0) { // The ratio is the same, no need to convert.
       *(chunk.data()) = this->readBuffer;
     } else {

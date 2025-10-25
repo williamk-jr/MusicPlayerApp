@@ -3,10 +3,21 @@
 #include <string>
 #include "../reader/iaudio_reader.h"
 #include "../resampler/iaudio_resampler.h"
+#include "../audio_buffer.h"
 
 namespace iamaprogrammer {
+
+  /*
+  Holds data important to audio streams.
+
+  - data:       File information related to timing.
+  - buffer:     File read buffer typically provided by file reader.
+  - seeking:    Whether a "seeking" action should happen. (eg. fast-forward/backward)
+  - seekOffest: How much to offset audio stream pointer when seeking.
+  - start:      The place in which to start reading audio
+  */
   struct AudioStreamData {
-    AudioFileDescriptor* data;
+    const AudioFileDescriptor* data;
     AudioBuffer* buffer;
 
     bool seeking = false;
@@ -16,7 +27,7 @@ namespace iamaprogrammer {
 
   class IBasicAudioStream {
   public:
-    virtual void openStream(IAudioReader* reader, IAudioResampler* resampler) = 0;
+    virtual void openStream() = 0;
     virtual void closeStream() = 0;
 
     virtual void startStream() = 0;
@@ -33,6 +44,6 @@ namespace iamaprogrammer {
     virtual std::string getError() = 0;
     virtual bool hasError() = 0;
   protected:
-    AudioBuffer audioBuffer;
+    AudioBuffer* audioBuffer;
   };
 }

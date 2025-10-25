@@ -9,11 +9,12 @@ namespace iamaprogrammer {
     AudioChunk(long size);
 
     std::vector<float>* data();
+    long getSize();
 
   private:
     long size = 0;
     std::vector<float> buffer;
   };
 
-  typedef std::queue<AudioChunk> AudioBuffer;
+  //typedef std::queue<AudioChunk> AudioBuffer;
 };

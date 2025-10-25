@@ -10,9 +10,9 @@
 namespace iamaprogrammer {
   class PortAudioStream : public IBasicAudioStream {
   public:
-    PortAudioStream();
+    PortAudioStream(AudioBuffer* audioBuffer);
 
-    void openStream(IAudioReader* reader, IAudioResampler* resampler) override;
+    void openStream() override;
     void closeStream() override;
 
     void startStream() override;
@@ -47,14 +47,17 @@ namespace iamaprogrammer {
       float* out = static_cast<float*>(outputBuffer);
       AudioStreamData* streamData = static_cast<AudioStreamData*>(userData);
 
+      // Audio reader implementations split signals into chunks. Get the most recent chunk from the reader.
       AudioChunk chunk = streamData->buffer->front();
       streamData->buffer->pop();
 
+      // Offest current start position when seeking.
       if (streamData->seeking) {
         streamData->start += streamData->seekOffset * streamData->data->channels;
         streamData->seeking = false;
       }
 
+      
       long pos = 0;
       for (unsigned long i = 0; i < framesPerBuffer; i++) {
         for (int channelOffset = 0; channelOffset < streamData->data->channels; channelOffset++) {

@@ -1,2 +1,2 @@
-add_subdirectory("lvgl_cpp")
-add_subdirectory("audio")
+add_subdirectory("liblvglcpp")
+add_subdirectory("libaudio")

@@ -11,10 +11,8 @@ add_subdirectory(libs/lvgl)
 target_include_directories(lvgl PUBLIC ${PROJECT_SOURCE_DIR}/libs)
 
 add_subdirectory("src")
-target_include_directories(lvgl_cpp PUBLIC ${PROJECT_SOURCE_DIR}/src/api/lvgl_cpp)
+#target_include_directories(lvgl_cpp PUBLIC ${PROJECT_SOURCE_DIR}/src/api/lvgl_cpp)
 
 # Create executable
 add_executable(${PROJECT_NAME} "src/main.cpp")
-target_link_libraries(${PROJECT_NAME} lvgl lvgl::demos lvgl::thorvg m pthread lvgl_cpp libaudio)
-
-\\wsl.localhost\Ubuntu\home\willk\MusicPlayer\aarch64-buildroot-linux-gnu_sdk-buildroot\aarch64-buildroot-linux-gnu
+target_link_libraries(${PROJECT_NAME} lvgl lvgl::demos lvgl::thorvg m pthread liblvglcpp libaudio)

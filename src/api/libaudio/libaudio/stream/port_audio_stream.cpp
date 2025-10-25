@@ -2,36 +2,48 @@
 
 namespace iamaprogrammer {
 
-  PortAudioStream::PortAudioStream() {
+  PortAudioStream::PortAudioStream(AudioBuffer* audioBuffer) {
+    this->audioBuffer = audioBuffer;
   }
 
-  void PortAudioStream::openStream(IAudioReader* reader, IAudioResampler* resampler) {
+  void PortAudioStream::openStream() {
+    std::cout << "AUDIO STREAM" << std::endl;
+    std::cout << "\tCreating Stream Data." << std::endl;
 
     this->audioStreamData = AudioStreamData{
-      reader->getAudioFileDescriptor(),
-      &this->audioBuffer
+      &this->audioBuffer->getAudioFileDescriptor(),
+      this->audioBuffer
     };
 
+    std::cout << "\tGetting Output Device." << std::endl;
     PaDeviceIndex device = Pa_GetDefaultOutputDevice();
     const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(device);
 
     PaStreamParameters outputParameters;
     outputParameters.device = device;
-    outputParameters.channelCount = reader->getAudioFileDescriptor()->channels;
+    outputParameters.channelCount = this->audioBuffer->getAudioFileDescriptor().channels;
     outputParameters.sampleFormat = paFloat32;
     outputParameters.suggestedLatency = deviceInfo->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
+    std::cout << "\tStream Parameters: " << std::endl;
+    std::cout << "\t\tDevice Index: " << outputParameters.device << std::endl;
+    std::cout << "\t\tChannel Count: " << outputParameters.channelCount << std::endl;
+    std::cout << "\t\tSample Format: " << outputParameters.sampleFormat << std::endl;
+    std::cout << "\t\tLatency: " << outputParameters.suggestedLatency << std::endl;
+
+    // reader->getReadSize() * resampler->getSampleRateConversionRatio()
     this->error = Pa_OpenStream(
       &this->stream,
       NULL,
       &outputParameters,
       deviceInfo->defaultSampleRate,
-      reader->getReadSize() * resampler->getSampleRateConversionRatio(), // paFramesPerBufferUnspecified
+      this->audioBuffer->getFramesPerBuffer(), // paFramesPerBufferUnspecified
       paNoFlag,
       paCallback,
       &this->audioStreamData
     );
+    std::cout << "\tCreated Audio Stream." << std::endl;
   }
 
   void PortAudioStream::closeStream() {
@@ -64,7 +76,7 @@ namespace iamaprogrammer {
   }
 
   AudioBuffer* PortAudioStream::getAudioBuffer() {
-    return &this->audioBuffer;
+    return this->audioBuffer;
   }
 
   std::string PortAudioStream::getError() {

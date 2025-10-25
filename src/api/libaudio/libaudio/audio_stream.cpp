@@ -23,10 +23,7 @@ namespace iamaprogrammer {
 
     this->audioReaderThread = std::thread([this](){ audioReaderThreadCallback(); }); // Start reader thread.
 
-    this->basicAudioStream->openStream(
-      this->reader, 
-      this->resampler
-    );
+    this->basicAudioStream->openStream();
     this->handleError();
   }
 

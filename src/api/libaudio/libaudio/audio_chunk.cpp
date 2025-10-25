@@ -9,6 +9,10 @@ namespace iamaprogrammer {
     this->buffer = std::vector<float>(size);
   }
 
+  long AudioChunk::getSize() {
+    return this->size;
+  }
+
   std::vector<float>* AudioChunk::data() {
     return &buffer;
   }

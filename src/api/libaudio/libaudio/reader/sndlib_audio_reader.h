@@ -5,12 +5,15 @@
 #include <filesystem>
 #include <iostream>
 
+
+
 namespace iamaprogrammer {
   class SndlibAudioReader: public IAudioReader {
   public:
     SndlibAudioReader();
-    SndlibAudioReader(std::filesystem::path filePath, int readSize);
+    SndlibAudioReader(int readSize);
 
+    void open(std::filesystem::path filePath) override;
     size_t read(IAudioResampler* resampler, AudioBuffer& buffer) override;
     void seek(size_t frames, int whence) override;
 
