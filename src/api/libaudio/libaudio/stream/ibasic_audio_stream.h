@@ -16,14 +16,6 @@ namespace iamaprogrammer {
   - seekOffest: How much to offset audio stream pointer when seeking.
   - start:      The place in which to start reading audio
   */
-  struct AudioStreamData {
-    const AudioFileDescriptor* data;
-    AudioBuffer* buffer;
-
-    bool seeking = false;
-    long seekOffset = 0;
-    long start = 0;
-  };
 
   class IBasicAudioStream {
   public:
@@ -34,8 +26,12 @@ namespace iamaprogrammer {
     virtual void seekStream(int frames) = 0;
     virtual void stopStream() = 0;
 
+    virtual bool isStreamFinished() = 0;
     virtual bool isStreamStopped() = 0;
     virtual bool isStreamActive() = 0;
+
+    virtual long streamPosition() = 0;
+    virtual long streamDuration() = 0;
 
     //virtual double getSampleRate() = 0;
     virtual int getChannelCount() = 0;
@@ -45,5 +41,17 @@ namespace iamaprogrammer {
     virtual bool hasError() = 0;
   protected:
     AudioBuffer* audioBuffer;
+  };
+
+  struct AudioStreamData {
+    IBasicAudioStream* stream;
+    const AudioFileDescriptor* data;
+    AudioBuffer* buffer;
+
+    bool seeking = false;
+    long seekOffset = 0;
+    long start = 0;
+
+    bool streamFinished = true;
   };
 }

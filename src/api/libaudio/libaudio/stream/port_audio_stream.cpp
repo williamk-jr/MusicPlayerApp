@@ -11,13 +11,25 @@ namespace iamaprogrammer {
     std::cout << "\tCreating Stream Data." << std::endl;
 
     this->audioStreamData = AudioStreamData{
+      this,
       &this->audioBuffer->getAudioFileDescriptor(),
       this->audioBuffer
     };
 
     std::cout << "\tGetting Output Device." << std::endl;
+
+    PaDeviceIndex devicesCount = Pa_GetDeviceCount();
+    for (PaDeviceIndex device = 0; device < devicesCount; device++) {
+      const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(device);
+
+      std::cout << "\tDevice " << device << ": " << deviceInfo->name << std::endl;
+      std::cout << "\t\tDefault Samplerate: " << deviceInfo->defaultSampleRate << std::endl;
+      std::cout << "\t\tDefault Samplerate: " << deviceInfo->defaultSampleRate << std::endl;
+    }
+
     PaDeviceIndex device = Pa_GetDefaultOutputDevice();
     const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(device);
+    
 
     PaStreamParameters outputParameters;
     outputParameters.device = device;
@@ -38,11 +50,13 @@ namespace iamaprogrammer {
       NULL,
       &outputParameters,
       deviceInfo->defaultSampleRate,
-      this->audioBuffer->getFramesPerBuffer(), // paFramesPerBufferUnspecified
+      this->audioBuffer->getFrameReadCount(), // paFramesPerBufferUnspecified
       paNoFlag,
       paCallback,
       &this->audioStreamData
     );
+
+    Pa_SetStreamFinishedCallback(this->stream, paStreamFinishedCallback);
     std::cout << "\tCreated Audio Stream." << std::endl;
   }
 
@@ -51,6 +65,7 @@ namespace iamaprogrammer {
   }
 
   void PortAudioStream::startStream() {
+    this->audioStreamData.streamFinished = false;
     this->error = Pa_StartStream(this->stream);
   }
 
@@ -63,12 +78,24 @@ namespace iamaprogrammer {
     this->error = Pa_StopStream(this->stream);
   }
 
+  bool PortAudioStream::isStreamFinished() {
+    return this->audioStreamData.streamFinished;
+  }
+
   bool PortAudioStream::isStreamStopped() {
     return Pa_IsStreamStopped(this->stream);
   }
 
   bool PortAudioStream::isStreamActive() {
     return Pa_IsStreamActive(this->stream);
+  }
+
+  long PortAudioStream::streamPosition() {
+    return this->audioStreamData.start / this->getChannelCount();
+  }
+
+  long PortAudioStream::streamDuration() {
+    return this->audioStreamData.data->frames;
   }
 
   int PortAudioStream::getChannelCount() {

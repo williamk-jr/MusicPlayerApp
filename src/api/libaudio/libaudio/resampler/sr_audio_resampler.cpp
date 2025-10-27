@@ -5,7 +5,7 @@ namespace iamaprogrammer {
     std::cout << "RESAMPLER" << std::endl;
 
     AudioFileDescriptor* fileDescriptor = reader->getAudioFileDescriptor();
-    int readSize = reader->getReadSize();
+    int readSize = reader->getFrameReadCount();
     this->sampleRateConversionRatio = deviceSampleRate / fileDescriptor->sampleRate;
 
     std::cout << "\tAttempting to create resampler." << std::endl;

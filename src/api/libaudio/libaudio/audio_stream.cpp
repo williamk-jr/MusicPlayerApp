@@ -72,23 +72,27 @@ namespace iamaprogrammer {
     }
   }
 
-  std::filesystem::path AudioStream::getFilePath() {
-    return this->filePath;
+  long AudioStream::position() {
+    if (this->isStopped()) {
+      return -1;
+    }
+    return this->basicAudioStream->streamPosition() / this->reader->getAudioFileDescriptor()->sampleRate;
   }
 
-  AudioStream::PlayingState AudioStream::getPlayingState() {
-    return this->playingState;
+  long AudioStream::duration() {
+    return this->basicAudioStream->streamDuration() / this->reader->getAudioFileDescriptor()->sampleRate;
   }
 
-  AudioStream::StreamState AudioStream::getStreamState() {
-    return this->streamState;
+  bool AudioStream::isFinished() {
+    return this->basicAudioStream->isStreamFinished();
   }
 
-  void AudioStream::setFile(std::filesystem::path filePath) {
-    if (!std::filesystem::exists(filePath)) {
-      throw std::runtime_error("File not found: " + filePath.string());
-    };
-    this->filePath = filePath;
+  bool AudioStream::isActive() {
+    return this->basicAudioStream->isStreamActive();
+  }
+
+  bool AudioStream::isStopped() {
+    return this->basicAudioStream->isStreamStopped();
   }
 
   // Private
@@ -104,7 +108,7 @@ namespace iamaprogrammer {
         break;
       }
 
-      if (this->basicAudioStream->getAudioBuffer()->size() >= this->MAX_LOADED_CHUNKS || this->getPlayingState() == PlayingState::SEEKING) {
+      if (this->basicAudioStream->getAudioBuffer()->size() >= this->MAX_LOADED_CHUNKS || this->playingState == PlayingState::SEEKING) {
         continue;
       }
 

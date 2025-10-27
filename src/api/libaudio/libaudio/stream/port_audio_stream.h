@@ -19,8 +19,12 @@ namespace iamaprogrammer {
     void seekStream(int frames) override;
     void stopStream() override;
 
+    bool isStreamFinished() override;
     bool isStreamStopped() override;
     bool isStreamActive() override;
+
+    long streamPosition() override;
+    long streamDuration() override;
 
     //double getSampleRate() override;
     int getChannelCount() override;
@@ -68,7 +72,16 @@ namespace iamaprogrammer {
         streamData->start += streamData->data->channels;
       }
 
+      if (streamData->start >= streamData->data->frames * streamData->data->channels) {
+        return paComplete;
+      }
+
       return paContinue;
+    }
+
+    static void paStreamFinishedCallback(void* userData) {
+      AudioStreamData* streamData = static_cast<AudioStreamData*>(userData);
+      streamData->streamFinished = true;
     }
   };
 }

@@ -5,8 +5,8 @@ namespace iamaprogrammer {
 
   }
 
-  SndlibAudioReader::SndlibAudioReader(int readSize): 
-    readSize(readSize) {}
+  SndlibAudioReader::SndlibAudioReader(int frameReadCount): 
+    readSize(readSize), frameReadCount(frameReadCount) {}
 
   void SndlibAudioReader::open(std::filesystem::path filePath) {
     std::cout << "READER" << std::endl;
@@ -36,14 +36,14 @@ namespace iamaprogrammer {
     std::cout << "\t\tSample Rate: " << info.samplerate << std::endl;
 
     // Set up read buffer and initialize sample rate converter.
-    this->readBuffer = std::vector<float>(readSize * info.channels);
+    this->readBuffer = std::vector<float>(this->frameReadCount * info.channels);
   }
 
   size_t SndlibAudioReader::read(IAudioResampler* resampler, AudioBuffer& buffer) {
     int srConvertionRatio = resampler->getSampleRateConversionRatio();
-    AudioChunk chunk((this->readSize * srConvertionRatio) * this->audioFileDescriptor.channels);
+    AudioChunk chunk((this->frameReadCount * srConvertionRatio) * this->audioFileDescriptor.channels);
 
-    long long readCount = sf_readf_float(this->file, this->readBuffer.data(), this->readSize);
+    long long readCount = sf_readf_float(this->file, this->readBuffer.data(), this->frameReadCount);
 
     // Transfer data from read buffer to chunk buffer.
     if (srConvertionRatio == 1.0) { // The ratio is the same, no need to convert.
@@ -70,8 +70,8 @@ namespace iamaprogrammer {
     return &this->audioFileDescriptor;
   }
 
-  int SndlibAudioReader::getReadSize() {
-    return this->readSize;
+  int SndlibAudioReader::getFrameReadCount() {
+    return this->frameReadCount;
   }
 
   void SndlibAudioReader::close() {

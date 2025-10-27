@@ -19,7 +19,7 @@ namespace iamaprogrammer {
 
     void* getReadBuffer() override;
     AudioFileDescriptor* getAudioFileDescriptor() override;
-    int getReadSize() override;
+    int getFrameReadCount() override;
 
     void close() override;
   private:
@@ -29,6 +29,7 @@ namespace iamaprogrammer {
     AudioFileDescriptor audioFileDescriptor;
     std::vector<float> readBuffer;
 
+    int frameReadCount = 0;
     int readSize = 0;
   };
 }

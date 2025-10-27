@@ -65,8 +65,7 @@ int main() {;
   // Create intermediate buffer
   iamaprogrammer::AudioBuffer sharedAudioBuffer(
     reader.getAudioFileDescriptor(), 
-    reader.getReadSize() * resampler.getSampleRateConversionRatio(),
-    reader.getReadSize()
+    reader.getFrameReadCount() * resampler.getSampleRateConversionRatio()
   );
 
   // Create audio stream
@@ -75,7 +74,12 @@ int main() {;
 
   advancedStream.setup();
   advancedStream.start();
-  Pa_Sleep(10000);
+
+  while (!advancedStream.isFinished()) {
+    Pa_Sleep(1000);
+    std::cout << advancedStream.position() << " s/ " << advancedStream.duration() << " s" << std::endl;
+  }
+  // Pa_Sleep(10000);
   // advancedStream.seek(-3);
   // Pa_Sleep(10000);
   advancedStream.stop();

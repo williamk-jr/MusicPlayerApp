@@ -1,20 +1,18 @@
 #include "audio_buffer.h"
 
 namespace iamaprogrammer {
-  AudioBuffer::AudioBuffer(AudioFileDescriptor* audioFileDescriptor, int framesPerBuffer, int readSize):
+  AudioBuffer::AudioBuffer(AudioFileDescriptor* audioFileDescriptor, int framesReadCount):
     audioFileDescriptor(audioFileDescriptor),
-    framesPerBuffer(framesPerBuffer),
-    readSize(readSize)
+    framesReadCount(framesReadCount)
   {
     std::cout << "BUFFER" << std::endl;
     std::cout << "\tCreated Shared Buffer: " << std::endl;
-    std::cout << "\t\tFrames Per Buffer: " << this->framesPerBuffer << std::endl;
-    std::cout << "\t\tRead Size: " << this->readSize << std::endl;
+    std::cout << "\t\tFrames Per Buffer: " << this->framesReadCount << std::endl;
   }
 
   void AudioBuffer::push(AudioChunk& chunk) {
-    if (chunk.getSize() != this->framesPerBuffer) {
-      throw std::runtime_error("Mismatch between chunk size and frames per buffer.");
+    if (chunk.getSize() != this->framesReadCount * this->audioFileDescriptor->channels) {
+      throw std::runtime_error("Mismatch between chunk size and frames per buffer. " + std::to_string(chunk.getSize()) + " vs " + std::to_string(this->framesReadCount * this->audioFileDescriptor->channels));
     }
     this->buffer.push(chunk);
   }
@@ -35,11 +33,7 @@ namespace iamaprogrammer {
     return *this->audioFileDescriptor;
   }
 
-  const int AudioBuffer::getFramesPerBuffer() {
-    return this->framesPerBuffer;
-  }
-
-  const int AudioBuffer::getReadSize() {
-    return this->readSize;
+  const int AudioBuffer::getFrameReadCount() {
+    return this->framesReadCount;
   }
 }

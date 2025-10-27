@@ -16,7 +16,7 @@ namespace iamaprogrammer {
 
     virtual void* getReadBuffer() = 0;
     virtual AudioFileDescriptor* getAudioFileDescriptor() = 0;
-    virtual int getReadSize() = 0;
+    virtual int getFrameReadCount() = 0;
 
     virtual void close() = 0;
   };
