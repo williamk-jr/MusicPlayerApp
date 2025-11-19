@@ -1,6 +1,8 @@
 add_library(liblvglcpp STATIC 
   liblvglcpp/lvgl_cpp.cpp
 
+  liblvglcpp/events/event_bus.cpp
+
   liblvglcpp/style/style.cpp
   liblvglcpp/widgets/widget.cpp
   liblvglcpp/widgets/button.cpp

@@ -2,6 +2,10 @@
 
 namespace iamaprogrammer {
 
+  Widget::~Widget() {
+    lv_obj_delete(this->widget);
+  }
+
   void Widget::create(lv_obj_t* parent) {
     this->assign(lv_obj_create(parent));
   }
@@ -9,6 +13,14 @@ namespace iamaprogrammer {
 
   void Widget::assign(lv_obj_t* object) {
     this->widget = object;
+
+    // Remove unwanted default styles
+    this->setStylePadLeft(0, 0);
+    this->setStylePadRight(0, 0);
+    this->setStylePadTop(0, 0);
+    this->setStylePadBottom(0, 0);
+
+    this->setStyleRadius(0, 0);
   }
 
 
@@ -262,6 +274,370 @@ namespace iamaprogrammer {
     lv_obj_add_style(this->widget, style->getHandle(), selector);
   }
 
+  void Widget::addEventCallback(lv_event_cb_t event_cb, lv_event_code_t filter, void* user_data) {
+    lv_obj_add_event_cb(this->widget, event_cb, filter, user_data);
+  }
+
+  void Widget::sendEvent(uint32_t event_code, void* param) {
+    lv_obj_send_event(this->widget, (lv_event_code_t)event_code, nullptr);
+  }
+
+  void Widget::setStyleWidth(int32_t value, lv_style_selector_t selector) {
+    lv_obj_set_style_width(this->widget, value, selector);
+  }
+  void Widget::setStyleMinWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_min_width(this->widget, value, selector);
+  }
+  void Widget::setStyleMaxWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_max_width(this->widget, value, selector);
+  }
+  void Widget::setStyleHeight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_height(this->widget, value, selector);
+  }
+  void Widget::setStyleMinHeight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_min_height(this->widget, value, selector);
+  }
+  void Widget::setStyleMaxHeight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_max_height(this->widget, value, selector);
+  }
+  void Widget::setStyleLength(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_length(this->widget, value, selector);
+  }
+  void Widget::setStyleX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_x(this->widget, value, selector);
+  }
+  void Widget::setStyleY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_y(this->widget, value, selector);
+  }
+  void Widget::setStyleAlign(lv_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_align(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_width(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformHeight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_height(this->widget, value, selector);
+  }
+  void Widget::setStyleTranslateX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_translate_x(this->widget, value, selector);
+  }
+  void Widget::setStyleTranslateY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_translate_y(this->widget, value, selector);
+  }
+  void Widget::setStyleTranslateRadial(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_translate_radial(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformScaleX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_scale_x(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformScaleY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_scale_y(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformRotation(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_rotation(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformPivotX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_pivot_x(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformPivotY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_pivot_y(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformSkewX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_skew_x(this->widget, value, selector);
+  }
+  void Widget::setStyleTransformSkewY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_transform_skew_y(this->widget, value, selector);
+  }
+  void Widget::setStylePadTop(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_top(this->widget, value, selector);
+  }
+  void Widget::setStylePadBottom(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_bottom(this->widget, value, selector);
+  }
+  void Widget::setStylePadLeft(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_left(this->widget, value, selector);
+  }
+  void Widget::setStylePadRight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_right(this->widget, value, selector);
+  }
+  void Widget::setStylePadRow(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_row(this->widget, value, selector);
+  }
+  void Widget::setStylePadColumn(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_column(this->widget, value, selector);
+  }
+  void Widget::setStylePadRadial(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_pad_radial(this->widget, value, selector);
+  }
+  void Widget::setStyleMarginTop(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_margin_top(this->widget, value, selector);
+  }
+  void Widget::setStyleMarginBottom(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_margin_bottom(this->widget, value, selector);
+  }
+  void Widget::setStyleMarginLeft(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_margin_left(this->widget, value, selector);
+  }
+  void Widget::setStyleMarginRight(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_margin_right(this->widget, value, selector);
+  }
+  void Widget::setStyleBgColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_color(this->widget, value, selector);
+  }
+  void Widget::setStyleBgOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBgGradColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_grad_color(this->widget, value, selector);
+  }
+  void Widget::setStyleBgGradDir(lv_grad_dir_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_grad_dir(this->widget, value, selector);
+  }
+  void Widget::setStyleBgMainStop(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_main_stop(this->widget, value, selector);
+  }
+  void Widget::setStyleBgGradStop(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_grad_stop(this->widget, value, selector);
+  }
+  void Widget::setStyleBgMainOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_main_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBgGradOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_grad_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBgGrad(const lv_grad_dsc_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_grad(this->widget, value, selector);
+  }
+  void Widget::setStyleBgImageSrc(const void * value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_image_src(this->widget, value, selector);
+  }
+  void Widget::setStyleBgImageOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_image_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBgImageRecolor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_image_recolor(this->widget, value, selector);
+  }
+  void Widget::setStyleBgImageRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_image_recolor_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBgImageTiled(bool value, lv_style_selector_t selector) {
+      lv_obj_set_style_bg_image_tiled(this->widget, value, selector);
+  }
+  void Widget::setStyleBorderColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_border_color(this->widget, value, selector);
+  }
+  void Widget::setStyleBorderOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_border_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleBorderWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_border_width(this->widget, value, selector);
+  }
+  void Widget::setStyleBorderSide(lv_border_side_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_border_side(this->widget, value, selector);
+  }
+  void Widget::setStyleBorderPost(bool value, lv_style_selector_t selector) {
+      lv_obj_set_style_border_post(this->widget, value, selector);
+  }
+  void Widget::setStyleOutlineWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_outline_width(this->widget, value, selector);
+  }
+  void Widget::setStyleOutlineColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_outline_color(this->widget, value, selector);
+  }
+  void Widget::setStyleOutlineOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_outline_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleOutlinePad(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_outline_pad(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_width(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowOffsetX(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_offset_x(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowOffsetY(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_offset_y(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowSpread(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_spread(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_color(this->widget, value, selector);
+  }
+  void Widget::setStyleShadowOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_shadow_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleImageOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_image_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleImageRecolor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_image_recolor(this->widget, value, selector);
+  }
+  void Widget::setStyleImageRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_image_recolor_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleLineWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_width(this->widget, value, selector);
+  }
+  void Widget::setStyleLineDashWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_dash_width(this->widget, value, selector);
+  }
+  void Widget::setStyleLineDashGap(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_dash_gap(this->widget, value, selector);
+  }
+  void Widget::setStyleLineRounded(bool value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_rounded(this->widget, value, selector);
+  }
+  void Widget::setStyleLineColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_color(this->widget, value, selector);
+  }
+  void Widget::setStyleLineOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_line_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleArcWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_arc_width(this->widget, value, selector);
+  }
+  void Widget::setStyleArcRounded(bool value, lv_style_selector_t selector) {
+      lv_obj_set_style_arc_rounded(this->widget, value, selector);
+  }
+  void Widget::setStyleArcColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_arc_color(this->widget, value, selector);
+  }
+  void Widget::setStyleArcOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_arc_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleArcImageSrc(const void * value, lv_style_selector_t selector) {
+      lv_obj_set_style_arc_image_src(this->widget, value, selector);
+  }
+  void Widget::setStyleTextColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_color(this->widget, value, selector);
+  }
+  void Widget::setStyleTextOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleTextFont(const lv_font_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_font(this->widget, value, selector);
+  }
+  void Widget::setStyleTextLetterSpace(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_letter_space(this->widget, value, selector);
+  }
+  void Widget::setStyleTextLineSpace(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_line_space(this->widget, value, selector);
+  }
+  void Widget::setStyleTextDecor(lv_text_decor_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_decor(this->widget, value, selector);
+  }
+  void Widget::setStyleTextAlign(lv_text_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_align(this->widget, value, selector);
+  }
+  void Widget::setStyleTextOutlineStrokeColor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_outline_stroke_color(this->widget, value, selector);
+  }
+  void Widget::setStyleTextOutlineStrokeWidth(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_outline_stroke_width(this->widget, value, selector);
+  }
+  void Widget::setStyleTextOutlineStrokeOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_text_outline_stroke_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleRadius(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_radius(this->widget, value, selector);
+  }
+  void Widget::setStyleRadialOffset(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_radial_offset(this->widget, value, selector);
+  }
+  void Widget::setStyleClipCorner(bool value, lv_style_selector_t selector) {
+      lv_obj_set_style_clip_corner(this->widget, value, selector);
+  }
+  void Widget::setStyleOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleOpaLayered(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_opa_layered(this->widget, value, selector);
+  }
+  void Widget::setStyleColorFilterDsc(const lv_color_filter_dsc_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_color_filter_dsc(this->widget, value, selector);
+  }
+  void Widget::setStyleColorFilterOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_color_filter_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleRecolor(lv_color_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_recolor(this->widget, value, selector);
+  }
+  void Widget::setStyleRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_recolor_opa(this->widget, value, selector);
+  }
+  void Widget::setStyleAnim(const lv_anim_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_anim(this->widget, value, selector);
+  }
+  void Widget::setStyleAnimDuration(uint32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_anim_duration(this->widget, value, selector);
+  }
+  void Widget::setStyleTransition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_transition(this->widget, value, selector);
+  }
+  void Widget::setStyleBlendMode(lv_blend_mode_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_blend_mode(this->widget, value, selector);
+  }
+  void Widget::setStyleLayout(uint16_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_layout(this->widget, value, selector);
+  }
+  void Widget::setStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_base_dir(this->widget, value, selector);
+  }
+  void Widget::setStyleBitmapMaskSrc(const void * value, lv_style_selector_t selector) {
+      lv_obj_set_style_bitmap_mask_src(this->widget, value, selector);
+  }
+  void Widget::setStyleRotarySensitivity(uint32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_rotary_sensitivity(this->widget, value, selector);
+  }
+
+  void Widget::setStyleFlexFlow(lv_flex_flow_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_flex_flow(this->widget, value, selector);
+  }
+  void Widget::setStyleFlexMainPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_flex_main_place(this->widget, value, selector);
+  }
+  void Widget::setStyleFlexCrossPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_flex_cross_place(this->widget, value, selector);
+  }
+  void Widget::setStyleFlexTrackPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_flex_track_place(this->widget, value, selector);
+  }
+  void Widget::setStyleFlexGrow(uint8_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_flex_grow(this->widget, value, selector);
+  }
+
+  void Widget::setStyleGridColumnDscArray(const int32_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_column_dsc_array(this->widget, value, selector);
+  }
+  void Widget::setStyleGridColumnAlign(lv_grid_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_column_align(this->widget, value, selector);
+  }
+  void Widget::setStyleGridRowDscArray(const int32_t * value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_row_dsc_array(this->widget, value, selector);
+  }
+  void Widget::setStyleGridRowAlign(lv_grid_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_row_align(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellColumnPos(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_column_pos(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellXAlign(lv_grid_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_x_align(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellColumnSpan(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_column_span(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellRowPos(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_row_pos(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellYAlign(lv_grid_align_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_y_align(this->widget, value, selector);
+  }
+  void Widget::setStyleGridCellRowSpan(int32_t value, lv_style_selector_t selector) {
+      lv_obj_set_style_grid_cell_row_span(this->widget, value, selector);
+  }
 
   // Events
 }

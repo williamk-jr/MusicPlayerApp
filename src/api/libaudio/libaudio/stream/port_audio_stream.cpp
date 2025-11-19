@@ -10,11 +10,8 @@ namespace iamaprogrammer {
     std::cout << "AUDIO STREAM" << std::endl;
     std::cout << "\tCreating Stream Data." << std::endl;
 
-    this->audioStreamData = AudioStreamData{
-      this,
-      &this->audioBuffer->getAudioFileDescriptor(),
-      this->audioBuffer
-    };
+    this->audioStreamData.data = &this->audioBuffer->getAudioFileDescriptor();
+    this->audioStreamData.buffer = this->audioBuffer;
 
     std::cout << "\tGetting Output Device." << std::endl;
 
@@ -30,7 +27,6 @@ namespace iamaprogrammer {
     PaDeviceIndex device = Pa_GetDefaultOutputDevice();
     const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(device);
     
-
     PaStreamParameters outputParameters;
     outputParameters.device = device;
     outputParameters.channelCount = this->audioBuffer->getAudioFileDescriptor().channels;

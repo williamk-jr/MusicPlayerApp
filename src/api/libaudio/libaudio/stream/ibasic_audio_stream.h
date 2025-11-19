@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <atomic>
 #include "../reader/iaudio_reader.h"
 #include "../resampler/iaudio_resampler.h"
 #include "../audio_buffer.h"
@@ -19,6 +20,11 @@ namespace iamaprogrammer {
 
   class IBasicAudioStream {
   public:
+    enum PlayingState {
+      PLAYING,
+      STOPPED
+    };
+
     virtual void openStream() = 0;
     virtual void closeStream() = 0;
 
@@ -41,17 +47,17 @@ namespace iamaprogrammer {
     virtual bool hasError() = 0;
   protected:
     AudioBuffer* audioBuffer;
+    std::atomic<PlayingState> playingState = PlayingState::STOPPED;
   };
 
   struct AudioStreamData {
-    IBasicAudioStream* stream;
     const AudioFileDescriptor* data;
     AudioBuffer* buffer;
 
-    bool seeking = false;
-    long seekOffset = 0;
-    long start = 0;
+    std::atomic<bool> seeking = false;
+    std::atomic<long> seekOffset = 0;
+    std::atomic<long> start = 0;
 
-    bool streamFinished = true;
+    std::atomic<bool> streamFinished = true;
   };
 }
