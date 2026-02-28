@@ -1,19 +1,7 @@
 #include "slider.h"
 namespace iamaprogrammer {
-  SliderWidget::SliderWidget(Widget* parent) {
-    this->create(parent->getHandle());
-  }
-
-  SliderWidget::SliderWidget(lv_obj_t* parent) {
-    this->create(parent);
-  }
-  
-  void SliderWidget::create(lv_obj_t* parent) {
-    this->assign(
-      lv_slider_create(parent)
-    );
-  }
-
+  SliderWidget::SliderWidget(LvObject* parent) : 
+    LvObject(lv_slider_create(parent->getHandle())) {}
 
   void SliderWidget::setValue(int32_t value, lv_anim_enable_t anim) {
     lv_slider_set_value(this->getHandle(), value, anim);

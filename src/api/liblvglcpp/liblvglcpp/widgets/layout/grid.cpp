@@ -1,16 +1,13 @@
 #include "grid.h"
 
 namespace iamaprogrammer {
-  Grid::Grid(Widget* parent, std::vector<int32_t> columns, std::vector<int32_t> rows) : 
-    Grid(parent->getHandle(), columns, rows) {}
+  Grid::Grid(LvObject& parent, std::vector<int32_t>& columns, std::vector<int32_t>& rows) : LvObject(lv_obj_create(parent.getHandle())) {
+    lv_obj_set_grid_dsc_array(this->widget, columns.data(), rows.data());
+    this->setLayout(LV_LAYOUT_GRID);
+  }
 
-  Grid::Grid(lv_obj_t* parent, std::vector<int32_t> columns, std::vector<int32_t> rows) : columns(columns), rows(rows) {
-    this->create(parent);
-
-    //this->columns.push_back(LV_GRID_TEMPLATE_LAST);
-    //this->rows.push_back(LV_GRID_TEMPLATE_LAST);
-
-    lv_obj_set_grid_dsc_array(this->getHandle(), this->columns.data(), this->rows.data());
+  Grid::Grid(lv_obj_t* parent, std::vector<int32_t>& columns, std::vector<int32_t>& rows) : LvObject(lv_obj_create(parent)) {
+    lv_obj_set_grid_dsc_array(this->widget, columns.data(), rows.data());
     this->setLayout(LV_LAYOUT_GRID);
   }
 

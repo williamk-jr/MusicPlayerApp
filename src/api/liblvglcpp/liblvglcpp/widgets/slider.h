@@ -1,13 +1,12 @@
 #pragma once
 
-#include "widget.h"
+#include "lv_object.h"
 
 namespace iamaprogrammer {
-  class SliderWidget: public Widget {
+  class SliderWidget: public LvObject {
     public:
-      SliderWidget(Widget* parent);
-
-      SliderWidget(lv_obj_t* parent);
+      SliderWidget() = default;
+      SliderWidget(LvObject* parent);
 
       void setValue(int32_t value, lv_anim_enable_t anim);
 
@@ -37,7 +36,5 @@ namespace iamaprogrammer {
 
       lv_observer_t* bindValue(lv_subject_t *subject);
 
-    protected:
-      void create(lv_obj_t* parent) override;
   };
 }

@@ -6,23 +6,18 @@ extern "C" {
   #include "lvgl/src/drivers/evdev/lv_evdev.h"
 }
 
-#include "events/event_bus.h"
-
 #include "style/style.h"
 
-#include "widgets/widget.h"
+#include "widgets/lv_object.h"
 #include "widgets/button.h"
 #include "widgets/label.h"
 #include "widgets/slider.h"
 #include "widgets/layout/grid.h"
 #include "widgets/layout/grid_cell.h"
+#include "widgets/list.h"
 
 #include "lvgl_cpp_util.h"
 
-namespace iamaprogrammer {
-
-  class LvglCpp {
-    public:
-      static void create();
-  };
+namespace iamaprogrammer::LvglCpp {
+    static void create();
 }

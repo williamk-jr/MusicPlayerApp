@@ -1,14 +1,11 @@
 #pragma once
 
-#include "widget.h"
+#include "lv_object.h"
 
 namespace iamaprogrammer {
-  class LabelWidget: public Widget {
+  class LabelWidget: public LvObject {
     public:
-      LabelWidget(Widget* parent);
-
-
-      LabelWidget(lv_obj_t* parent);
+      LabelWidget(LvObject* parent);
 
 
       void setText(const char *text);
@@ -70,7 +67,5 @@ namespace iamaprogrammer {
 
       void cutText(uint32_t pos, uint32_t cnt);
 
-    protected:
-      void create(lv_obj_t* parent) override;
   };
 }

@@ -1,8 +1,8 @@
 #include "file_watcher_service.h"
 
 namespace iamaprogrammer {
-  FileWatcherService::FileWatcherService(EventBus* eventBus, std::filesystem::path path) : 
-    eventBus(eventBus), path(path) {
+  FileWatcherService::FileWatcherService(std::filesystem::path path) : 
+    path(path) {
 
   }
   

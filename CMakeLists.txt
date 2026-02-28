@@ -8,6 +8,9 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 add_subdirectory(libs/lvgl)
+add_subdirectory(libs/registry)
+add_subdirectory(libs/libaudio)
+
 target_include_directories(lvgl PUBLIC ${PROJECT_SOURCE_DIR}/libs)
 
 add_subdirectory("src")

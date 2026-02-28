@@ -1,21 +1,8 @@
 #include "label.h"
 
 namespace iamaprogrammer {
-  LabelWidget::LabelWidget(Widget* parent) {
-    this->create(parent->getHandle());
-  }
-
-
-  LabelWidget::LabelWidget(lv_obj_t* parent) {
-    this->create(parent);
-  }
-  
-  
-  void LabelWidget::create(lv_obj_t* parent) {
-    this->assign(
-      lv_label_create(parent)
-    );
-  }
+  LabelWidget::LabelWidget(LvObject* parent) : 
+    LvObject(lv_label_create(parent->getHandle())) {}
 
 
   void LabelWidget::setText(const char *text) {

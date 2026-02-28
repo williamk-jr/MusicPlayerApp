@@ -1,7 +1,7 @@
 #include "lvgl_cpp.h"
 
-namespace iamaprogrammer {
-  void LvglCpp::create() {
+namespace iamaprogrammer::LvglCpp {
+  void create() {
     lv_init();
   }
 }

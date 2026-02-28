@@ -2,8 +2,14 @@
 
 namespace iamaprogrammer {
 
+  App::App() : mainpage(this->applicationModel) {
+    
+  }
+
   void App::start() {
-    iamaprogrammer::LvglCpp::create();
+
+    //iamaprogrammer::LvglCpp::create();
+    lv_init();
     //this->startServices();
 
     // Init Display
@@ -14,6 +20,19 @@ namespace iamaprogrammer {
 
     // Init Gui
     this->createGui();
+
+    // std::shared_ptr<OperationListMessage<nullptr_t, std::string>> message = 
+    //     std::make_shared<OperationListMessage<nullptr_t, std::string>>();
+
+    // for (std::string tableName : this->playlistRegistry.getTableNames()) {
+    //   message->addOperation(MessageOperation::ADD, tableName);
+    // }
+
+    // this->eventBus.publish<OperationListMessage<nullptr_t, std::string>>(iamaprogrammer::EVENT_PLAYLIST_UPDATE, message);
+  }
+
+  void App::tick() {
+    //this->eventBus.queryEvent();
   }
 
   void App::stop() {
@@ -40,6 +59,7 @@ namespace iamaprogrammer {
   }
 
   void App::createGui() {
-    mainpage.init(this->display);
+    this->mainpage.init(this->display);
+    std::cout << "something2" << std::endl;
   }
 }
